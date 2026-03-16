@@ -1,0 +1,76 @@
+@import '../variables';
+@import '../mixins';
+
+.auth-page {
+  min-height: 100vh;
+  @include flex-center;
+  background: radial-gradient(circle at top right, rgba($primary, 0.15), transparent),
+              radial-gradient(circle at bottom left, rgba($secondary, 0.1), transparent);
+  padding: 1.5rem;
+
+  .card {
+    width: 100%;
+    max-width: 440px;
+    padding: 2.5rem;
+    animation: fadeIn 0.5s ease;
+    
+    h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 2rem;
+      text-align: center;
+      letter-spacing: -1px;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+
+      label {
+        display: block;
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--text-muted);
+        margin-bottom: 0.5rem;
+      }
+
+      input, select {
+        width: 100%;
+        padding: 0.875rem 1rem;
+        background: var(--bg-hover);
+        border: 1px solid var(--glass-border);
+        border-radius: 10px;
+        color: var(--text-main);
+        outline: none;
+        transition: all $transition-fast;
+
+        &:focus {
+          border-color: var(--primary);
+          box-shadow: 0 0 0 4px rgba($primary, 0.1);
+          background: rgba($primary, 0.05);
+        }
+      }
+    }
+
+    .alert {
+      background: rgba($error, 0.1);
+      border-left: 4px solid $error;
+      color: $error;
+      padding: 1rem;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn {
+      width: 100%;
+      margin-top: 1rem;
+      padding: 1rem;
+      font-size: 1rem;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
