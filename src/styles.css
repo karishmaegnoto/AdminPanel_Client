@@ -182,6 +182,7 @@ h1, h2, h3, .brand {
   border: none;
   font-size: 14px;
   gap: 8px;
+  color: white;
 }
 
 .btn-primary {

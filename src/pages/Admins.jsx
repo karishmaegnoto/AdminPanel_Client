@@ -93,6 +93,7 @@ export default function Admins() {
         <div className={styles.headerActions}>
           <button
             className="btn btn--primary"
+            style={{ color:"white" }}
             onClick={() => {
               resetForm()
               setEditing(null)
@@ -193,7 +194,7 @@ export default function Admins() {
               className="btn btn--primary"
               type="submit"
               disabled={busy}
-              style={{ flex: 1 }}
+              style={{ flex: 1 ,color:"white"}}
             >
               {busy
                 ? 'Saving...'
@@ -206,6 +207,7 @@ export default function Admins() {
               className="btn btn--secondary"
               type="button"
               onClick={() => setShowModal(false)}
+              style={{ color:"white"}}
             >
               Cancel
             </button>

@@ -84,7 +84,7 @@ export default function Login() {
             </select>
           </div>
 
-          <button className="btn btn--primary" type="submit" disabled={loading} style={{ height: 50, fontSize: 17, marginTop: 12 }}>
+          <button className="btn btn--primary" type="submit" disabled={loading} style={{ height: 50, fontSize: 17, marginTop: 12, color:"white" }}>
             {loading ? 'Authenticating...' : (
               <>
                 <LogIn size={18} /> Sign In

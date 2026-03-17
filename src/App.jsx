@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard'
 import Admins from './pages/Admins'
 import Users from './pages/Users'
 import Buildings from './pages/Buildings'
+import Register from './pages/Register'
 import Profile from './pages/Profiles'
 import Team from './pages/Team'
 import Reports from './components/Reports'
@@ -15,7 +16,7 @@ import Navbar from './components/Navbar'
 import Sidebar from './components/Sidebar'
 import LoadingSpinner from './components/LoadingSpinner'
 import './styles/main.scss'
-
+import { useLocation } from 'react-router-dom';
 import styles from './App.module.scss'
 
 function PrivateRoute({ children, roles }) {
@@ -32,19 +33,17 @@ export function AppContent() {
   const [collapsed, setCollapsed] = useState(false)
   const [theme, setTheme] = useState('dark')
   const { user, loading } = useAuth()
+  const location = useLocation()
 
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') || 'dark'
-    setTheme(savedTheme)
-    document.documentElement.setAttribute('data-theme', savedTheme)
-  }, [])
+  const isAuthPage = ['/login', '/register'].includes(location.pathname)
 
   if (loading) return <LoadingSpinner />
 
   return (
     <>
       <div className={`${styles.appRoot} ${theme}`}>
-        {user && (
+      
+        {!isAuthPage && user && (
           <Sidebar
             collapsed={collapsed}
             setCollapsed={setCollapsed}
@@ -52,8 +51,10 @@ export function AppContent() {
             setTheme={setTheme}
           />
         )}
+
         <div className={`${styles.main} ${collapsed ? styles.collapsed : ''}`}>
-          {user && (
+        
+          {!isAuthPage && user && (
             <Navbar
               collapsed={collapsed}
               setCollapsed={setCollapsed}
@@ -61,44 +62,54 @@ export function AppContent() {
               setTheme={setTheme}
             />
           )}
-          <div className={styles.content}>
+
+          <div className={isAuthPage ? '' : styles.content}>
             <Routes>
               <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+
               <Route path="/" element={
                 <PrivateRoute>
                   <Dashboard />
                 </PrivateRoute>
               } />
+
               <Route path="/profile" element={
                 <PrivateRoute>
                   <Profile />
                 </PrivateRoute>
               } />
+
               <Route path="/team" element={
                 <PrivateRoute roles={['admin', 'user']}>
                   <Team />
                 </PrivateRoute>
               } />
+
               <Route path="/admins" element={
                 <PrivateRoute roles={['superadmin']}>
                   <Admins />
                 </PrivateRoute>
               } />
+
               <Route path="/users" element={
                 <PrivateRoute roles={['admin']}>
                   <Users />
                 </PrivateRoute>
               } />
+
               <Route path="/buildings" element={
                 <PrivateRoute roles={['user']}>
                   <Buildings />
                 </PrivateRoute>
               } />
+
               <Route path="/reports" element={
                 <PrivateRoute>
                   <Reports />
                 </PrivateRoute>
               } />
+
               <Route path="/settings" element={
                 <PrivateRoute>
                   <Settings />
@@ -108,7 +119,8 @@ export function AppContent() {
           </div>
         </div>
       </div>
-      <Toaster position="top-right" />  
+
+      <Toaster position="top-right" />
     </>
   )
 }

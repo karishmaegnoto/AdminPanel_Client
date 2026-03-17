@@ -331,7 +331,7 @@ export default function Profile() {
                                     />
                                 </div>
 
-                                <div className="form-actions" style={{ borderTop: 'none', paddingTop: 0 }}>
+                                <div className="form-actions" style={{ borderTop: 'none', paddingTop: 0, color:"white" }}>
                                     <button
                                         type="submit"
                                         className="btn btn--primary"
@@ -344,6 +344,7 @@ export default function Profile() {
                             </form>
                         </div>
                     )}
+
                 </div>
             </div>
         </div>

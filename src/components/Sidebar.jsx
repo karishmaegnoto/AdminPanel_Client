@@ -71,7 +71,22 @@ export default function Sidebar({ collapsed, setCollapsed }) {
       <div className={styles.header}>
         <div className={styles.brand}>
           <div className={styles.brandIcon}>
-            <Building2 size={24} />
+            <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="50"
+            height="50"
+            viewBox="0 0 50 50"
+            fill="none"
+          >
+            <path
+              d="M42.3077 50H7.69231C3.44231 50 0 46.5577 0 42.3077V7.69231C0 3.44231 3.44231 0 7.69231 0H42.3077C46.5577 0 50 3.44231 50 7.69231V42.3077C50 46.5577 46.5577 50 42.3077 50Z"
+              fill="#12131A"
+            />
+            <path
+              d="M43.7386 17.1114V5.76904H6.26172V44.2306H25.1309L38.8079 30.5383V44.2306H43.7386V22.0421H38.8079H22.5348V26.9729H35.4386L23.1117 39.2998H11.1925V10.6998H38.8079V17.1114H43.7386Z"
+              fill="white"
+            />
+          </svg>
           </div>
           {!collapsed && (
             <div className={styles.brandText}>
