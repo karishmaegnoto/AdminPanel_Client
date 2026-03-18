@@ -2,35 +2,23 @@ import React, { useEffect, useRef } from 'react'
 import { X } from 'lucide-react'
 import styles from './Modal.module.scss'
 
-export default function Modal({
-  isOpen = false,
-  onClose,
-  title,
-  children,
-  maxWidth = '500px',
-  showCloseButton = true,
-  closeOnOverlayClick = true,
-  className = ''
-}) {
-  const modalRef = useRef(null)
+export default function Modal({isOpen = false,onClose,title,children,maxWidth = '500px',showCloseButton = true,closeOnOverlayClick = true,className = ''}) {
+  const modalRef = useRef(null);
 
   useEffect(() => {
-    if (!isOpen) return
-
+    if (!isOpen) return;
     const handleEscape = (e) => {
       if (e.key === 'Escape') onClose()
     }
-
-    document.addEventListener('keydown', handleEscape)
-    document.body.style.overflow = 'hidden'
-
+    document.addEventListener('keydown', handleEscape);
+    document.body.style.overflow = 'hidden';
     return () => {
       document.removeEventListener('keydown', handleEscape)
       document.body.style.overflow = 'unset'
     }
   }, [isOpen, onClose])
 
-  if (!isOpen) return null
+  if (!isOpen) return null;
 
   const handleOverlayClick = (e) => {
     if (closeOnOverlayClick && e.target === e.currentTarget) {
@@ -40,10 +28,7 @@ export default function Modal({
 
   return (
     <div className={styles.overlay} onClick={handleOverlayClick}>
-      <div
-        ref={modalRef}
-        className={`${styles.modal} ${className}`}
-        style={{ maxWidth }}
+      <div ref={modalRef} className={`${styles.modal} ${className}`} style={{ maxWidth }}
       >
         {(title || showCloseButton) && (
           <div className={styles.header}>

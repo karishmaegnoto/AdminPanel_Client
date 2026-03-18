@@ -1,9 +1,8 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
-import { useAuth } from '../context/AuthContext'
-import {LayoutDashboard,Users,UserCog,Building2,User,Settings,BarChart3,LogOut,ChevronLeft,ChevronRight} from 'lucide-react'
-
-import styles from './Sidebar.module.scss'
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import {LayoutDashboard,Users,UserCog,Building2,User,Settings,BarChart3,LogOut,ChevronLeft,ChevronRight} from 'lucide-react';
+import styles from './Sidebar.module.scss';
 
 export default function Sidebar({ collapsed, setCollapsed }) {
   const { user, logout } = useAuth()
@@ -23,13 +22,6 @@ export default function Sidebar({ collapsed, setCollapsed }) {
       roles: ['superadmin', 'admin', 'user']
     },
     {
-      to: '/team',
-      label: 'Team',
-      icon: <Users size={20} />,
-      roles: ['admin', 'user'],
-      badge: user?.teamSize > 0 ? user.teamSize : null
-    },
-    {
       to: '/admins',
       label: 'Admin Management',
       icon: <UserCog size={20} />,
@@ -39,6 +31,12 @@ export default function Sidebar({ collapsed, setCollapsed }) {
       to: '/users',
       label: 'User Management',
       icon: <Users size={20} />,
+      roles: ['admin']
+    },
+    {
+      to: '/leads',
+      label: 'Leads Management',
+      icon: <Building2 size={20} />,
       roles: ['admin']
     },
     {

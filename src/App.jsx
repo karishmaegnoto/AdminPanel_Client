@@ -9,7 +9,8 @@ import Users from './pages/Users'
 import Buildings from './pages/Buildings'
 import Register from './pages/Register'
 import Profile from './pages/Profiles'
-import Team from './pages/Team'
+import LeadDetails from './pages/Leads/LeadDetails';
+import Lead from "./pages/Leads/Leads";
 import Reports from './components/Reports'
 import Settings from './components/Settings'
 import Navbar from './components/Navbar'
@@ -20,22 +21,19 @@ import { useLocation } from 'react-router-dom';
 import styles from './App.module.scss'
 
 function PrivateRoute({ children, roles }) {
-  const { user, loading } = useAuth()
-
+  const { user, loading } = useAuth();
   if (loading) return <LoadingSpinner />
   if (!user) return <Navigate to="/login" />
   if (roles && !roles.includes(user.role)) return <Navigate to="/" />
-
-  return children
+  return children;
 }
 
 export function AppContent() {
-  const [collapsed, setCollapsed] = useState(false)
-  const [theme, setTheme] = useState('dark')
-  const { user, loading } = useAuth()
-  const location = useLocation()
-
-  const isAuthPage = ['/login', '/register'].includes(location.pathname)
+  const [collapsed, setCollapsed] = useState(false);
+  const [theme, setTheme] = useState('dark');
+  const { user, loading } = useAuth();
+  const location = useLocation();
+  const isAuthPage = ['/login', '/register'].includes(location.pathname);
 
   if (loading) return <LoadingSpinner />
 
@@ -80,12 +78,16 @@ export function AppContent() {
                 </PrivateRoute>
               } />
 
-              <Route path="/team" element={
-                <PrivateRoute roles={['admin', 'user']}>
-                  <Team />
+              <Route path="/leads" element={
+                <PrivateRoute roles={['admin']}>
+                  <Lead />
                 </PrivateRoute>
               } />
-
+              <Route path="/leads/:id" element={
+                <PrivateRoute roles={['admin']}>
+                  <LeadDetails />
+                </PrivateRoute>
+              } />
               <Route path="/admins" element={
                 <PrivateRoute roles={['superadmin']}>
                   <Admins />
