@@ -1,3 +1,96 @@
+// @use '../styles/variables' as *;
+
+// .overlay {
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   right: 0;
+//   bottom: 0;
+//   background: rgba(0, 0, 0, 0.4);
+//   backdrop-filter: blur(8px);
+//   z-index: var(--z-modal);
+//   @include flex-center;
+//   padding: var(--spacing-md);
+//   animation: fadeIn 0.3s ease;
+// }
+
+// .modal {
+//   @include glassmorphism;
+//   width: 100%;
+//   max-width: 440px;
+//   background: var(--bg-surface);
+//   border-radius: var(--radius-2xl);
+//   box-shadow: var(--shadow-xl), var(--shadow-glow);
+//   position: relative;
+//   overflow: hidden;
+//   animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+// }
+
+// .header {
+//   display: flex;
+//   align-items: center;
+//   gap: var(--spacing-md);
+//   padding: var(--spacing-xl) var(--spacing-xl) var(--spacing-md);
+  
+//   h3 {
+//     font-size: 1.25rem;
+//     font-weight: 800;
+//     color: var(--text-primary);
+//     margin: 0;
+//     flex: 1;
+//   }
+// }
+
+// .icon {
+//   width: 44px;
+//   height: 44px;
+//   border-radius: var(--radius-lg);
+//   @include flex-center;
+//   background: var(--danger-light);
+//   color: var(--danger);
+//   flex-shrink: 0;
+// }
+
+// .closeBtn {
+//   width: 32px;
+//   height: 32px;
+//   border-radius: var(--radius-md);
+//   @include flex-center;
+//   background: var(--bg-surface-hover);
+//   border: none;
+//   color: var(--text-muted);
+//   cursor: pointer;
+  
+//   &:hover {
+//     color: var(--text-primary);
+//   }
+// }
+
+// .content {
+//   padding: 0 var(--spacing-xl) var(--spacing-lg);
+  
+//   p {
+//     color: var(--text-secondary);
+//     line-height: 1.6;
+//     margin: 0;
+//   }
+// }
+
+// .footer {
+//   display: flex;
+//   justify-content: flex-end;
+//   gap: var(--spacing-md);
+//   padding: var(--spacing-lg) var(--spacing-xl) var(--spacing-xl);
+//   border-top: 1px solid var(--border);
+//   background: var(--primary-transparent);
+// }
+
+// @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+// @keyframes slideUp { 
+//   from { opacity: 0; transform: translateY(20px) scale(0.98); } 
+//   to { opacity: 1; transform: translateY(0) scale(1); } 
+// }
+
 @use '../styles/variables' as *;
 
 .overlay {
@@ -31,7 +124,7 @@
   align-items: center;
   gap: var(--spacing-md);
   padding: var(--spacing-xl) var(--spacing-xl) var(--spacing-md);
-  
+
   h3 {
     font-size: 1.25rem;
     font-weight: 800;
@@ -60,15 +153,17 @@
   border: none;
   color: var(--text-muted);
   cursor: pointer;
-  
+  transition: all var(--transition-fast);
+
   &:hover {
     color: var(--text-primary);
+    background: var(--danger-light);
   }
 }
 
 .content {
   padding: 0 var(--spacing-xl) var(--spacing-lg);
-  
+
   p {
     color: var(--text-secondary);
     line-height: 1.6;
@@ -85,8 +180,88 @@
   background: var(--primary-transparent);
 }
 
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes slideUp { 
-  from { opacity: 0; transform: translateY(20px) scale(0.98); } 
-  to { opacity: 1; transform: translateY(0) scale(1); } 
+.cancelBtn {
+  padding: 10px 20px;
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+
+  &:hover {
+    background: var(--bg-surface-hover);
+    color: var(--text-primary);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.confirmBtn {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: 10px 20px;
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  color: #ffffff;
+
+  &.danger {
+    background: var(--danger);
+
+    &:hover {
+      background: var(--danger-dark);
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.35);
+    }
+  }
+
+  &.primary {
+    background: var(--primary);
+
+    &:hover {
+      background: var(--primary-hover);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+    }
+  }
+
+  &.warning {
+    background: var(--warning);
+
+    &:hover {
+      filter: brightness(0.9);
+    }
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }

@@ -1,6 +1,189 @@
+// @use 'variables' as *;
+
+// // Reset & Base Styles
+// * {
+//   margin: 0;
+//   padding: 0;
+//   box-sizing: border-box;
+// }
+
+// html {
+//   font-size: 16px;
+//   scroll-behavior: smooth;
+// }
+
+// body {
+//   font-family: var(--font-sans);
+//   background-color: var(--bg-desktop);
+//   color: var(--text-primary);
+//   line-height: 1.6;
+//   overflow-x: hidden;
+//   -webkit-font-smoothing: antialiased;
+//   -moz-osx-font-smoothing: grayscale;
+//   transition: background-color var(--transition-slow);
+// }
+
+// // Global Custom Scrollbar
+// ::-webkit-scrollbar {
+//   width: 8px;
+//   height: 8px;
+// }
+
+// ::-webkit-scrollbar-track {
+//   background: var(--bg-surface);
+// }
+
+// ::-webkit-scrollbar-thumb {
+//   background: var(--border);
+//   border-radius: 4px;
+  
+//   &:hover {
+//     background: var(--text-muted);
+//   }
+// }
+
+// // Shared Component Base Styles (Used across modules)
+
+// // Button Base
+// .btn {
+//   display: inline-flex;
+//   align-items: center;
+//   justify-content: center;
+//   gap: var(--spacing-sm);
+//   padding: 10px 24px;
+//   font-size: 0.95rem;
+//   font-weight: 700;
+//   border: 1px solid transparent;
+//   border-radius: var(--radius-xl);
+//   cursor: pointer;
+//   transition: all var(--transition-fast);
+//   text-decoration: none;
+//   white-space: nowrap;
+//   font-family: var(--font-sans);
+  
+//   &:disabled {
+//     opacity: 0.5;
+//     cursor: not-allowed;
+//   }
+  
+//   svg {
+//     transition: transform var(--transition-fast);
+//   }
+  
+//   &:active {
+//     transform: scale(0.98);
+//   }
+
+//   &--primary {
+//     background: var(--primary);
+//     color: white;
+//     box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+    
+//     &:hover:not(:disabled) {
+//       background: var(--primary-dark);
+//       box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+//       transform: translateY(-1px);
+//     }
+//   }
+  
+//   &--secondary {
+//     background: var(--bg-surface-hover);
+//     color: var(--text-primary);
+//     border-color: var(--border);
+    
+//     &:hover:not(:disabled) {
+//       background: var(--primary-transparent);
+//       border-color: var(--primary-transparent);
+//       color: var(--primary);
+//     }
+//   }
+  
+//   &--danger {
+//     background: var(--danger);
+//     color: white;
+//     box-shadow: 0 4px 15px rgba(239, 68, 68, 0.2);
+    
+//     &:hover:not(:disabled) {
+//       background: #dc2626;
+//       box-shadow: 0 6px 20px rgba(239, 68, 68, 0.3);
+//     }
+//   }
+  
+//   &--ghost {
+//     background: transparent;
+//     color: var(--text-secondary);
+    
+//     &:hover:not(:disabled) {
+//       background: var(--bg-surface-hover);
+//       color: var(--text-primary);
+//     }
+//   }
+// }
+
+// // Form Base
+// .form-group {
+//   margin-bottom: var(--spacing-xl);
+  
+//   label {
+//     display: block;
+//     margin-bottom: 8px;
+//     font-weight: 700;
+//     color: var(--text-primary);
+//     font-size: 0.9rem;
+//     letter-spacing: -0.01em;
+//   }
+  
+//   input,
+//   select,
+//   textarea {
+//     width: 100%;
+//     padding: 12px 16px;
+//     background: var(--bg-surface);
+//     border: 1px solid var(--border);
+//     border-radius: var(--radius-lg);
+//     color: var(--text-primary);
+//     font-size: 1rem;
+//     font-weight: 500;
+//     transition: all var(--transition-fast);
+//     font-family: var(--font-sans);
+    
+//     &:focus {
+//       outline: none;
+//       border-color: var(--primary);
+//       box-shadow: 0 0 0 4px var(--primary-transparent);
+//       background: var(--bg-desktop);
+//     }
+    
+//     &::placeholder {
+//       color: var(--text-muted);
+//       opacity: 0.7;
+//     }
+    
+//     &:disabled {
+//       opacity: 0.6;
+//       cursor: not-allowed;
+//       background: var(--bg-surface-hover);
+//     }
+//   }
+  
+//   textarea {
+//     min-height: 120px;
+//     resize: vertical;
+//   }
+// }
+
+// // Global Utility Classes
+// .animate-spin {
+//   animation: spin 1s linear infinite;
+// }
+
+// @keyframes spin {
+//   from { transform: rotate(0deg); }
+//   to { transform: rotate(360deg); }
+// }
+
 @use 'variables' as *;
 
-// Reset & Base Styles
 * {
   margin: 0;
   padding: 0;
@@ -20,99 +203,98 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: background-color var(--transition-slow);
+  transition: background-color var(--transition-slow), color var(--transition-slow);
 }
 
-// Global Custom Scrollbar
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+}
+
+/* Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
-
 ::-webkit-scrollbar-track {
-  background: var(--bg-surface);
+  background: transparent;
 }
-
 ::-webkit-scrollbar-thumb {
   background: var(--border);
-  border-radius: 4px;
-  
+  border-radius: 3px;
   &:hover {
     background: var(--text-muted);
   }
 }
 
-// Shared Component Base Styles (Used across modules)
-
-// Button Base
+/* ========== BUTTONS ========== */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-sm);
-  padding: 10px 24px;
-  font-size: 0.95rem;
-  font-weight: 700;
+  gap: 8px;
+  padding: 10px 22px;
+  font-size: 0.875rem;
+  font-weight: 600;
   border: 1px solid transparent;
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-md);
   cursor: pointer;
   transition: all var(--transition-fast);
-  text-decoration: none;
-  white-space: nowrap;
   font-family: var(--font-sans);
-  
+  white-space: nowrap;
+  line-height: 1.4;
+
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
   }
-  
-  svg {
-    transition: transform var(--transition-fast);
-  }
-  
-  &:active {
-    transform: scale(0.98);
+
+  &:active:not(:disabled) {
+    transform: scale(0.97);
   }
 
   &--primary {
     background: var(--primary);
-    color: white;
-    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
-    
+    color: #ffffff;
+
     &:hover:not(:disabled) {
-      background: var(--primary-dark);
-      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
-      transform: translateY(-1px);
+      background: var(--primary-hover);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
     }
   }
-  
+
   &--secondary {
-    background: var(--bg-surface-hover);
+    background: var(--bg-surface);
     color: var(--text-primary);
     border-color: var(--border);
-    
+
     &:hover:not(:disabled) {
-      background: var(--primary-transparent);
+      background: var(--bg-surface-hover);
       border-color: var(--primary-transparent);
-      color: var(--primary);
     }
   }
-  
+
   &--danger {
     background: var(--danger);
-    color: white;
-    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.2);
-    
+    color: #ffffff;
+
     &:hover:not(:disabled) {
-      background: #dc2626;
-      box-shadow: 0 6px 20px rgba(239, 68, 68, 0.3);
+      background: var(--danger-dark);
     }
   }
-  
+
   &--ghost {
     background: transparent;
     color: var(--text-secondary);
-    
+
     &:hover:not(:disabled) {
       background: var(--bg-surface-hover);
       color: var(--text-primary);
@@ -120,59 +302,54 @@ body {
   }
 }
 
-// Form Base
+/* ========== FORM BASE ========== */
 .form-group {
-  margin-bottom: var(--spacing-xl);
-  
+  margin-bottom: var(--spacing-lg);
+
   label {
     display: block;
-    margin-bottom: 8px;
-    font-weight: 700;
+    margin-bottom: 6px;
+    font-weight: 600;
     color: var(--text-primary);
-    font-size: 0.9rem;
-    letter-spacing: -0.01em;
+    font-size: 0.85rem;
   }
-  
+
   input,
   select,
   textarea {
     width: 100%;
-    padding: 12px 16px;
-    background: var(--bg-surface);
+    padding: 10px 14px;
+    background: var(--input-bg);
     border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-md);
     color: var(--text-primary);
-    font-size: 1rem;
-    font-weight: 500;
-    transition: all var(--transition-fast);
+    font-size: 0.925rem;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
     font-family: var(--font-sans);
-    
+
     &:focus {
       outline: none;
       border-color: var(--primary);
-      box-shadow: 0 0 0 4px var(--primary-transparent);
-      background: var(--bg-desktop);
+      box-shadow: 0 0 0 3px var(--primary-transparent);
     }
-    
+
     &::placeholder {
       color: var(--text-muted);
-      opacity: 0.7;
     }
-    
+
     &:disabled {
-      opacity: 0.6;
+      opacity: 0.5;
       cursor: not-allowed;
-      background: var(--bg-surface-hover);
     }
   }
-  
+
   textarea {
-    min-height: 120px;
+    min-height: 100px;
     resize: vertical;
   }
 }
 
-// Global Utility Classes
+/* ========== UTILITIES ========== */
 .animate-spin {
   animation: spin 1s linear infinite;
 }

@@ -1,3 +1,53 @@
+// @use './styles/variables' as *;
+
+// .appRoot {
+//   display: flex;
+//   min-height: 100vh;
+//   background-color: var(--bg-desktop);
+//   color: var(--text-primary);
+//   font-family: var(--font-sans);
+//   transition: background-color var(--transition-slow);
+// }
+
+// .main {
+//   flex: 1;
+//   display: flex;
+//   flex-direction: column;
+//   margin-left: var(--sidebar-width);
+//   transition: margin-left var(--transition-bounce);
+//   position: relative;
+//   min-width: 0;
+
+//   &.collapsed {
+//     margin-left: var(--sidebar-width-collapsed);
+//   }
+// }
+
+// .content {
+//   flex: 1;
+//   padding: var(--spacing-xl);
+//   margin-top: var(--navbar-height);
+//   min-height: calc(100vh - var(--navbar-height));
+//   position: relative;
+//   z-index: 1;
+
+//   @media (max-width: 768px) {
+//     padding: var(--spacing-lg);
+//   }
+
+//   &::before {
+//     content: '';
+//     position: fixed;
+//     top: 0;
+//     left: 0;
+//     width: 100vw;
+//     height: 100vh;
+//     background: radial-gradient(circle at 15% 50%, var(--primary-transparent), transparent 25%),
+//                 radial-gradient(circle at 85% 30%, rgba(16, 185, 129, 0.05), transparent 25%);
+//     pointer-events: none;
+//     z-index: -1;
+//   }
+// }
 @use './styles/variables' as *;
 
 .appRoot {
@@ -6,7 +56,7 @@
   background-color: var(--bg-desktop);
   color: var(--text-primary);
   font-family: var(--font-sans);
-  transition: background-color var(--transition-slow);
+  transition: background-color var(--transition-slow), color var(--transition-slow);
 }
 
 .main {
@@ -14,7 +64,7 @@
   display: flex;
   flex-direction: column;
   margin-left: var(--sidebar-width);
-  transition: margin-left var(--transition-bounce);
+  transition: margin-left var(--transition-slow);
   position: relative;
   min-width: 0;
 
@@ -28,24 +78,8 @@
   padding: var(--spacing-xl);
   margin-top: var(--navbar-height);
   min-height: calc(100vh - var(--navbar-height));
-  position: relative;
-  z-index: 1;
 
   @media (max-width: 768px) {
-    padding: var(--spacing-lg);
-  }
-  
-  /* Add a subtle background pattern or gradient for premium feel */
-  &::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: radial-gradient(circle at 15% 50%, var(--primary-transparent), transparent 25%),
-                radial-gradient(circle at 85% 30%, rgba(16, 185, 129, 0.05), transparent 25%);
-    pointer-events: none;
-    z-index: -1;
+    padding: var(--spacing-md);
   }
 }

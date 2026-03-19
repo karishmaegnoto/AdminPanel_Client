@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+
+import React, { useState, useEffect } from 'react'
 import api from '../api'
 import { Lock, Mail, ShieldAlert, LogIn, Building2 } from 'lucide-react'
-
 import styles from './Login.module.scss'
 
 export default function Login() {
@@ -11,12 +11,26 @@ export default function Login() {
   const [err, setErr] = useState(null)
   const [loading, setLoading] = useState(false)
 
-  const submit = async e => {
+  // Ensure theme is applied even on auth pages
+  useEffect(() => {
+    const saved = localStorage.getItem('theme')
+    if (saved) {
+      document.documentElement.setAttribute('data-theme', saved)
+    } else {
+      document.documentElement.setAttribute('data-theme', 'dark')
+    }
+  }, [])
+
+  const submit = async (e) => {
     e.preventDefault()
     setErr(null)
     setLoading(true)
     try {
-      const payload = { email: email.trim().toLowerCase(), password: password.trim(), role }
+      const payload = {
+        email: email.trim().toLowerCase(),
+        password: password.trim(),
+        role,
+      }
       const r = await api.post('/auth/login', payload)
       localStorage.setItem('token', r.data.token)
       localStorage.setItem('role', r.data.role)
@@ -35,7 +49,7 @@ export default function Login() {
       <div className={styles.loginCard}>
         <div className={styles.header}>
           <div className={styles.logoIcon}>
-            <Building2 size={32} />
+            <Building2 size={28} />
           </div>
           <h1>Welcome Back</h1>
           <p>Login to manage your 3D Estimator projects</p>
@@ -49,43 +63,45 @@ export default function Login() {
             </div>
           )}
 
-          <div className="form-group">
+          <div className={styles.fieldGroup}>
             <label className={styles.inputLabel}>
               <Mail size={14} /> Email Address
             </label>
-            <input 
-              type="email" 
-              value={email} 
-              onChange={e => setEmail(e.target.value)} 
-              required 
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
               placeholder="admin@example.com"
             />
           </div>
 
-          <div className="form-group">
+          <div className={styles.fieldGroup}>
             <label className={styles.inputLabel}>
               <Lock size={14} /> Password
             </label>
-            <input 
-              type="password" 
-              value={password} 
-              onChange={e => setPassword(e.target.value)} 
-              required 
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
               placeholder="••••••••"
             />
           </div>
 
-          <div className="form-group">
+          <div className={styles.fieldGroup}>
             <label className={styles.inputLabel}>Select Workspace Role</label>
-            <select value={role} onChange={e => setRole(e.target.value)} style={{ cursor: 'pointer' }}>
-              <option value="superadmin">Super Admin (System Oversight)</option>
-              <option value="admin">Customer Admin (User Management)</option>
-              <option value="user">Project User (Lead Management)</option>
+            <select value={role} onChange={(e) => setRole(e.target.value)}>
+              <option value="superadmin">Super Admin </option>
+              <option value="admin">Customer Admin </option>
+              <option value="user">Project User </option>
             </select>
           </div>
 
-          <button className="btn btn--primary" type="submit" disabled={loading} style={{ height: 50, fontSize: 17, marginTop: 12, color:"white" }}>
-            {loading ? 'Authenticating...' : (
+          <button className={styles.submitBtn} type="submit" disabled={loading}>
+            {loading ? (
+              'Authenticating...'
+            ) : (
               <>
                 <LogIn size={18} /> Sign In
               </>
