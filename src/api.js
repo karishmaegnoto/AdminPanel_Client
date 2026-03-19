@@ -1,73 +1,13 @@
 
-// import axios from 'axios'
-
-// const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001'
-
-// const api = axios.create({
-//   baseURL: `${BASE_URL.replace(/\/$/, '')}/api`,
-//   timeout: 10000
-// })
-
-// // Request interceptor to add auth token
-// api.interceptors.request.use(
-//   (config) => {
-//     const token = localStorage.getItem('token')
-//     if (token) {
-//       config.headers.Authorization = `Bearer ${token}`
-//     }
-//     return config
-//   },
-//   (error) => Promise.reject(error)
-// )
-
-// // Response interceptor for error handling
-// api.interceptors.response.use(
-//   (response) => response,
-//   (error) => {
-//     if (error.response?.status === 401) {
-//       localStorage.removeItem('token')
-//       localStorage.removeItem('role')
-//       window.location.href = '/login'
-//     }
-//     return Promise.reject(error)
-//   }
-// )
-
-// // File upload helper
-// export const uploadFile = async (file, folder = 'avatars') => {
-//   const formData = new FormData()
-//   formData.append('file', file)
-//   formData.append('folder', folder)
-  
-//   const response = await api.post('/upload', formData, {
-//     headers: {
-//       'Content-Type': 'multipart/form-data'
-//     }
-//   })
-//   return response.data
-// }
-
-// // ==================== Admin API Wrapper ====================
-// export const adminApi = {
-//   getUsers: () => api.get('/admin/users'),
-//   getUser: (id) => api.get(`/admin/users/${id}`),
-//   createUser: (data) => api.post('/admin/users', data),
-//   updateUser: (id, data) => api.put(`/admin/users/${id}`, data),
-//   deleteUser: (id) => api.delete(`/admin/users/${id}`),
-//   getUserBuildings: (id, params) => api.get(`/admin/users/${id}/buildings`, { params }),
-//   assignLeads: (data) => api.post('/admin/assign-leads', data),
-//   updateLeadPermission: (data) => api.put('/admin/update-permission', data)
-// }
-
-// export default api;
 import axios from 'axios'
 
-const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001'
+const BASE_URL = import.meta.env.VITE_API_URL || 'https://adminpanel-server-g4ob.onrender.com' 
+// const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001' ;
 
 const api = axios.create({
   baseURL: `${BASE_URL.replace(/\/$/, '')}/api`,
   timeout: 10000,
-  headers: { 'Content-Type': 'application/json' } // default JSON
+  headers: { 'Content-Type': 'application/json' } 
 })
 
 // ===================== REQUEST INTERCEPTOR =====================
