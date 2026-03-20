@@ -3,10 +3,9 @@
 │   App.module.scss
 │   main.jsx
 │   styles.css
-│   
+│   │ api.litcoffee
+│
 ├───components
-│       AssignLeadsModal.jsx
-│       AssignLeadsModal.scss
 │       Charts.jsx
 │       Charts.module.scss
 │       ConfirmModal.jsx
@@ -28,6 +27,8 @@
 │       AuthContext.jsx
 │
 ├───Modals
+│       AssignLeadsModal.jsx
+│       AssignLeadsModal.scss
 │       AssignLeadToUserModal.jsx
 │       AssignUserModal.jsx
 │       AssignUserModal.module.scss
@@ -54,23 +55,11 @@
 │           Leads.module.scss
 │
 └───styles
-    │   main.scss
-    │   variables.scss
-    │   _base.scss
-    │   _mixins.scss
-    │
-    ├───components
-    │       _management.scss
-    │
-    ├───layout
-    │       _navbar.scss
-    │       _sidebar.scss
-    │
-    └───pages
-            _dashboard.scss
-            _login.scss
+        main.scss
+        variables.scss
 
-
-also do not change the UI of any or if you are creating new file,it should be similar 
-tell me which file you want to check and edit
-
+This is my frontend structure, which is already implemeted for super admin ,admin and user
+so do not change other thing ,lets fix the permissions now on UI,
+user will be able to see only those permissions which are assigned to that user, also delete permissions should be there.
+so work on UI now 
+tell me which file you want and what to change, do not change other logic than this
