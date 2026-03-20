@@ -14,7 +14,8 @@ const initialForm = {
   password: '',
   department: '',
   phone: '',
-  canCreateSubUsers: false
+  canCreateSubUsers: true,
+  canCreateLead: false
 };
 
 export default function Users() {
@@ -110,7 +111,8 @@ export default function Users() {
       password: '',
       department: u.department || '',
       phone: u.phone || '',
-      canCreateSubUsers: u.canCreateSubUsers || false
+      canCreateSubUsers: u.canCreateSubUsers ?? true,
+      canCreateLead: u.canCreateLead || false
     });
     setShowModal(true);
   };
@@ -190,6 +192,24 @@ export default function Users() {
             value={form.phone}
             onChange={(e) => setForm({ ...form, phone: e.target.value })}
           />
+          <div className={styles.checkboxGroup}>
+            <label className={styles.checkboxLabel}>
+              <input
+                type="checkbox"
+                checked={form.canCreateSubUsers}
+                onChange={(e) => setForm({ ...form, canCreateSubUsers: e.target.checked })}
+              />
+              Can Create Sub-Users
+            </label>
+            <label className={styles.checkboxLabel}>
+              <input
+                type="checkbox"
+                checked={form.canCreateLead}
+                onChange={(e) => setForm({ ...form, canCreateLead: e.target.checked })}
+              />
+              Can Create Leads
+            </label>
+          </div>
           <div className={styles.modalActions}>
             <button
               type="submit"

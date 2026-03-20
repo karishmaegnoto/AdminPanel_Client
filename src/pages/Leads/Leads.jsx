@@ -2,23 +2,31 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../api';
 import LoadingSpinner from '../../components/LoadingSpinner';
-import { RefreshCw, Trash2 } from 'lucide-react';
+import Modal from '../../components/Modal';
+import { RefreshCw, Trash2, Plus } from 'lucide-react';
 import styles from './Leads.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
-const statusOptions = ['new','contacted','qualified','proposal','negotiation','closed-won','closed-lost']
+const statusOptions = ['new', 'contacted', 'qualified', 'proposal', 'negotiation', 'closed-won', 'closed-lost']
 
 export default function Leads() {
   const [leads, setLeads] = useState([]);
   const [filtered, setFiltered] = useState([]);
   const [loading, setLoading] = useState(true);
   const [statusFilter, setStatusFilter] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [form, setForm] = useState({
+    buildingType: '',
+    status: 'new',
+    userInfo: { firstName: '', lastName: '', email: '', phoneNumber: '' }
+  });
 
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  const isPrivileged = ['admin', 'superadmin'].includes(user?.role);;
+  const isPrivileged = ['admin', 'superadmin'].includes(user?.role?.toLowerCase());
 
   const getPermissions = (lead) => {
     if (isPrivileged) return ['read', 'edit', 'delete'];
@@ -36,7 +44,8 @@ export default function Leads() {
   const loadLeads = async () => {
     setLoading(true)
     try {
-      const res = await api.get('/buildings');
+      const endpoint = isPrivileged ? '/buildings' : '/users/buildings';
+      const res = await api.get(endpoint);
 
       if (res.data?.success) {
         let data = res.data.data || [];
@@ -57,7 +66,9 @@ export default function Leads() {
     }
   }
 
-  useEffect(() => { loadLeads() }, [])
+  useEffect(() => {
+    if (user) loadLeads();
+  }, [user])
 
   useEffect(() => {
     if (!statusFilter) setFiltered(leads)
@@ -85,6 +96,28 @@ export default function Leads() {
     catch (err) { console.error(err); alert(err?.response?.data?.message || 'Status update failed') }
   }
 
+  const handleCreateLead = async (e) => {
+    e.preventDefault();
+    setBusy(true);
+    try {
+      await api.post('/users/buildings', form);
+      setShowModal(false);
+      setForm({
+        buildingType: '',
+        status: 'new',
+        userInfo: { firstName: '', lastName: '', email: '', phoneNumber: '' }
+      });
+      loadLeads();
+    } catch (err) {
+      console.error(err);
+      alert(err.response?.data?.message || 'Lead creation failed');
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const canCreate = isPrivileged || user?.canCreateLead;
+
   return (
     <div className={styles.page}>
       <div className={styles.header}>
@@ -97,11 +130,77 @@ export default function Leads() {
             <option value="">All Status</option>
             {statusOptions.map(s => <option key={s} value={s}>{s}</option>)}
           </select>
-          <button className="btn btn--secondary" onClick={loadLeads}>
+          {canCreate && (
+            <button className={styles.btnPrimary} onClick={() => setShowModal(true)}>
+              <Plus size={18} /> New Lead
+            </button>
+          )}
+          <button className={styles.btnSecondary} onClick={loadLeads}>
             <RefreshCw size={18} /> Refresh
           </button>
         </div>
       </div>
+
+      <Modal isOpen={showModal} onClose={() => setShowModal(false)} title="Create New Lead">
+        <form onSubmit={handleCreateLead} className={styles.modalForm}>
+          <div className="form-group">
+            <label>Building Type</label>
+            <input
+              value={form.buildingType}
+              onChange={e => setForm({ ...form, buildingType: e.target.value })}
+              required
+              placeholder="e.g. Garage, Carport, Warehouse"
+            />
+          </div>
+          <div className={styles.formRow}>
+            <div className="form-group">
+              <label>Client First Name</label>
+              <input
+                value={form.userInfo.firstName}
+                onChange={e => setForm({ ...form, userInfo: { ...form.userInfo, firstName: e.target.value } })}
+                required
+                placeholder="John"
+              />
+            </div>
+            <div className="form-group">
+              <label>Client Last Name</label>
+              <input
+                value={form.userInfo.lastName}
+                onChange={e => setForm({ ...form, userInfo: { ...form.userInfo, lastName: e.target.value } })}
+                required
+                placeholder="Doe"
+              />
+            </div>
+          </div>
+          <div className="form-group">
+            <label>Client Email</label>
+            <input
+              value={form.userInfo.email}
+              onChange={e => setForm({ ...form, userInfo: { ...form.userInfo, email: e.target.value } })}
+              type="email"
+              required
+              placeholder="john@example.com"
+            />
+          </div>
+          <div className="form-group">
+            <label>Client Phone</label>
+            <input
+              value={form.userInfo.phoneNumber}
+              onChange={e => setForm({ ...form, userInfo: { ...form.userInfo, phoneNumber: e.target.value } })}
+              required
+              placeholder="+1 (555) 000-0000"
+            />
+          </div>
+          <div className={styles.modalActions}>
+            <button className={styles.btnPrimary} type="submit" disabled={busy} style={{ flex: 1 }}>
+              {busy ? 'Processing...' : 'Create Lead'}
+            </button>
+            <button className={styles.btnSecondary} type="button" onClick={() => setShowModal(false)}>
+              Cancel
+            </button>
+          </div>
+        </form>
+      </Modal>
 
       {loading ? <LoadingSpinner /> : (
         <div className={styles.tableWrapper}>

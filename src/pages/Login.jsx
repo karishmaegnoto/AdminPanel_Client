@@ -93,8 +93,8 @@ export default function Login() {
             <label className={styles.inputLabel}>Select Workspace Role</label>
             <select value={role} onChange={(e) => setRole(e.target.value)}>
               <option value="superadmin">Super Admin </option>
-              <option value="admin">Customer Admin </option>
-              <option value="user">Project User </option>
+              <option value="admin">Admin</option>
+              <option value="user">User</option>
             </select>
           </div>
 
