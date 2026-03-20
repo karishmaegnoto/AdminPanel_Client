@@ -2,7 +2,8 @@
 import axios from 'axios'
 
 // const BASE_URL = import.meta.env.VITE_API_URL || 'https://adminpanel-server-g4ob.onrender.com' 
-const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001' ;
+const BASE_URL = import.meta.env.VITE_API_URL || 'https://adminpanel-server-hzzo.onrender.com/' 
+// const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001' ;
 
 const api = axios.create({
   baseURL: `${BASE_URL.replace(/\/$/, '')}/api`,
